@@ -4,5 +4,6 @@
 
 file = open('../files/essay.txt', 'r')
 content = file.read()
+file.close()
 
 print(content.title())

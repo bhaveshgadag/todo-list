@@ -3,5 +3,6 @@
 
 file = open('../files/essay.txt')
 content = file.read()
+file.close()
 
 print(f"Number of characters in essay.txt: {len(content)}")

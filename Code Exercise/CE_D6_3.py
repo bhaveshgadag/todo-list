@@ -19,3 +19,4 @@ members.append(new_member)
 
 file = open("../files/members.txt", 'w')
 file.writelines(members)
+file.close()
