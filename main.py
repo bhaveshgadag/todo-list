@@ -22,7 +22,7 @@ while True:
             todo_list = file.readlines()
             file.close()
             for index, item in enumerate(todo_list):
-                item = item.replace('\n','')
+                item = item.strip('\n')
                 todo = f"{index + 1}. {item}"
                 print(todo)
         case 'edit':
