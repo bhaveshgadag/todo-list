@@ -6,10 +6,23 @@ while True:
 
     match user_action:
         case 'add':
-            todo = input("Enter a TODO : ")
-            todo_list.append(todo)
+            todo = input("Enter a TODO : ") + '\n'
+            
+            file = open('files/todos.txt','r')
+            todos = file.readlines()
+            file.close()
+            
+            todos.append(todo)
+            
+            file = open('files/todos.txt','w')
+            file.writelines(todos)
+            file.close()
         case 'show':
+            file = open('files/todos.txt','r')
+            todo_list = file.readlines()
+            file.close()
             for index, item in enumerate(todo_list):
+                item = item.replace('\n','')
                 todo = f"{index + 1}. {item}"
                 print(todo)
         case 'edit':
