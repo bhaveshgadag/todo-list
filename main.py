@@ -8,30 +8,49 @@ while True:
         case 'add':
             todo = input("Enter a TODO : ") + '\n'
             
-            file = open('files/todos.txt','r')
-            todos = file.readlines()
-            file.close()
+            with open('files/todos.txt','r') as file:
+            	todos = file.readlines()
             
             todos.append(todo)
             
-            file = open('files/todos.txt','w')
-            file.writelines(todos)
-            file.close()
+            with open('files/todos.txt','w') as file:
+            	file.writelines(todos)
+            	
         case 'show':
-            file = open('files/todos.txt','r')
-            todo_list = file.readlines()
-            file.close()
-            for index, item in enumerate(todo_list):
+            with open('files/todos.txt','r') as file:
+            	todos = file.readlines()
+            	
+            for index, item in enumerate(todos):
                 item = item.strip('\n')
                 todo = f"{index + 1}. {item}"
                 print(todo)
+                
         case 'edit':
             number = int(input("Which TODO to edit : ")) - 1
-            existing_todo = todo_list[number]
-            todo_list[number] = input("Editing " + existing_todo + " : ")
+            
+            with open('files/todos.txt','r') as file:
+            	todos = file.readlines()
+            	
+            existing_todo = todos[number]
+            	
+            todos[number] = input("Editing " + existing_todo.strip("\n") + " : ") + "\n"
+            with open('files/todos.txt','w') as file:
+            	file.writelines(todos)
+            	
         case 'complete':
-            todo = input("TODO to set as complete :")
-            todo_list.remove(todo)
+            number = int(input("TODO to set as complete :"))
+            index = number - 1
+            
+            with open('files/todos.txt','r') as file:
+            	todos = file.readlines()
+            	
+            todo = todos[index].strip("\n")
+            print(f"Removing {todo} from list as it is complete.")
+            todos.pop(index)
+            
+            with open('files/todos.txt','w') as file:
+            	file.writelines(todos)
+            	
         case 'exit':
             break
 
