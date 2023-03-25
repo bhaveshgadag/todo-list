@@ -24,19 +24,19 @@ while True:
             print(todo)
                 
     elif 'edit' in user_action:
-        number = int(input("Which TODO to edit : ")) - 1
+        number = int(user_action[5:]) - 1
 
         with open('files/todos.txt', 'r') as file:
             todos = file.readlines()
 
         existing_todo = todos[number]
 
-        todos[number] = input("Editing " + existing_todo.strip("\n") + " : ") + "\n"
+        todos[number] = input("Editing '" + existing_todo.strip("\n") + "' : ") + "\n"
         with open('files/todos.txt', 'w') as file:
             file.writelines(todos)
 
     elif 'complete' in user_action:
-        number = int(input("TODO to set as complete :"))
+        number = int(user_action[9:])
         index = number - 1
 
         with open('files/todos.txt', 'r') as file:
@@ -51,5 +51,8 @@ while True:
 
     elif 'exit' in user_action:
         break
+
+    else:
+        print("Invalid input is entered")
 
 print("Bye")

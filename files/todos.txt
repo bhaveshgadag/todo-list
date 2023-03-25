@@ -1,5 +1,3 @@
 Sleep
 Dream
-Wakeup
-Sit on sofa
-Bath
+Read book
