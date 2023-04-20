@@ -24,30 +24,38 @@ while True:
             print(todo)
                 
     elif user_action.startswith("edit"):
-        number = int(user_action[5:]) - 1
-
-        with open('files/todos.txt', 'r') as file:
-            todos = file.readlines()
-
-        existing_todo = todos[number]
-
-        todos[number] = input("Editing '" + existing_todo.strip("\n") + "' : ") + "\n"
-        with open('files/todos.txt', 'w') as file:
-            file.writelines(todos)
+         try:
+         	number = int(user_action[5:]) - 1
+         	with open('files/todos.txt', 'r') as file:
+         		todos = file.readlines()
+         		existing_todo = todos[number]
+         		
+         		todos[number] = input("Editing '" + existing_todo.strip("\n") + "' : ") + "\n"
+         		
+         	with open('files/todos.txt', 'w') as file:
+         		file.writelines(todos)
+         except ValueError:
+         	print("Incorrect use of command")
+         	continue
 
     elif user_action.startswith("complete"):
-        number = int(user_action[9:])
-        index = number - 1
-
-        with open('files/todos.txt', 'r') as file:
-            todos = file.readlines()
-
-        todo = todos[index].strip("\n")
-        print(f"Removing {todo} from list as it is complete.")
-        todos.pop(index)
-
-        with open('files/todos.txt', 'w') as file:
-            file.writelines(todos)
+         try:
+         	number = int(user_action[9:])
+         	index = number - 1
+         	
+         	with open('files/todos.txt', 'r') as file:
+         		todos = file.readlines()
+         	
+         	todo = todos[index].strip("\n")
+         	print(f"Removing {todo} from list as it is complete.")
+         	todos.pop(index)
+         	
+         	with open('files/todos.txt', 'w') as file:
+         		file.writelines(todos)
+         		
+         except IndexError:
+         	print("Value out of range.")
+         	continue
 
     elif user_action.startswith("exit"):
         break
