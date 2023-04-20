@@ -1,3 +1,8 @@
+def get_todos():
+	with open('files/todos.txt', 'r') as file_local:
+		todos_local = file_local.readlines()
+	return todos_local
+            
 
 while True:
     user_action = input("Select an option, add, edit, show, complete or exit : ")
@@ -6,8 +11,7 @@ while True:
     if user_action.startswith("add"):
         todo = user_action[4:]
 
-        with open('files/todos.txt', 'r') as file:
-            todos = file.readlines()
+        todos = get_todos()
 
         todos.append(todo + "\n")
 
@@ -15,8 +19,7 @@ while True:
             file.writelines(todos)
 
     elif user_action.startswith("show"):
-        with open('files/todos.txt', 'r') as file:
-            todos = file.readlines()
+        todos = get_todos()
 
         for index, item in enumerate(todos):
             item = item.strip('\n')
@@ -26,11 +29,10 @@ while True:
     elif user_action.startswith("edit"):
          try:
          	number = int(user_action[5:]) - 1
-         	with open('files/todos.txt', 'r') as file:
-         		todos = file.readlines()
-         		existing_todo = todos[number]
+         	todos = get_todos()
+         	existing_todo = todos[number]
          		
-         		todos[number] = input("Editing '" + existing_todo.strip("\n") + "' : ") + "\n"
+         	todos[number] = input("Editing '" + existing_todo.strip("\n") + "' : ") + "\n"
          		
          	with open('files/todos.txt', 'w') as file:
          		file.writelines(todos)
@@ -43,8 +45,7 @@ while True:
          	number = int(user_action[9:])
          	index = number - 1
          	
-         	with open('files/todos.txt', 'r') as file:
-         		todos = file.readlines()
+         	todos = get_todos()
          	
          	todo = todos[index].strip("\n")
          	print(f"Removing {todo} from list as it is complete.")
