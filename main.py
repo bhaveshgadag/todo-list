@@ -1,6 +1,9 @@
 import functions
+import time
 
 while True:
+    now = time.strftime('%d %b %Y, %H:%M:%S')
+    print(f"Timestamp : {now}")
     user_action = input("Select an option, add, edit, show, complete or exit : ")
     user_action = user_action.strip()
 
