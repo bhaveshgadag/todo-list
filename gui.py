@@ -34,8 +34,10 @@ while True:
     window['timestamp'].Update(time.strftime('%d %b %Y, %H:%M:%S'))
     match event:
         case "Add":
-            #try:
             todo = values['todo']
+            if todo == '':
+                sg.popup('Please enter a todo.')
+                continue
             todos = functions.get_todos()
             todos.append(todo + "\n")
             functions.write_todos(todos)
@@ -43,8 +45,7 @@ while True:
             # Clear input box and update list
             window['todo'].Update(value='')
             window['todos'].Update(values=todos)
-            #except:
-               # sg.popup('Please enter a todo')
+            
         case "Edit":
             try:
                 todo = values['todos'][0]
@@ -60,6 +61,7 @@ while True:
                 window['todos'].Update(values=todos)
             except IndexError:
                 sg.popup('Please select a todo.')
+                
         case 'Complete':
             try:
                 selected_todo = values['todos'][0]
@@ -71,14 +73,17 @@ while True:
                 window['todo'].Update(value='')
                 window['todos'].Update(values=todos)
             except IndexError:
-                sg.popup('Please select a todo')
+                sg.popup('Please select a todo.')
         case 'Exit':
             break
         case 'todos':
-            # update input box with user selection
-            todo = values['todos'][0]
-            todo = todo.strip()
-            window['todo'].Update(value=todo)
+            try:
+                # update input box with user selection
+                todo = values['todos'][0]
+                todo = todo.strip()
+                window['todo'].Update(value=todo)
+            except IndexError:
+                pass
         case sg.WIN_CLOSED:
             break
 
